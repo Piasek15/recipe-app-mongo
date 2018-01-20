@@ -57,8 +57,11 @@ public class RecipeServiceImpl implements RecipeService {
     public RecipeCommand findCommandById(String id) {
         RecipeCommand recipeCommand = recipeToRecipeCommand.convert(findById(id));
 
-        if (recipeCommand.getIngredients() != null && recipeCommand.getIngredients().size() > 0){
-            recipeCommand.getIngredients().forEach(rc -> rc.setRecipeId(recipeCommand.getId()));
+        //enhance command object with id value
+        if(recipeCommand.getIngredients() != null && recipeCommand.getIngredients().size() > 0){
+            recipeCommand.getIngredients().forEach(rc -> {
+                rc.setRecipeId(recipeCommand.getId());
+            });
         }
 
         return recipeCommand;
